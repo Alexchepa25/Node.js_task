@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+
+<body>
+
+    <div>
+        <textarea id='usersToPost' style="width: 100%; height: 250px;">
+            [
+            {
+                "UserName": "UserName",
+                "FirstName": "FirstName",
+                "LastName": "LastName",
+                "Age": "Age"
+            },
+            {
+                "UserName": "TheMacha",
+                "FirstName": "Masha",
+                "LastName": "Yurinova",
+                "Age": "34"
+            },
+            {
+                "UserName": "TheVictor",
+                "FirstName": "Viktor",
+                "LastName": "Surinov",
+                "Age": "41"
+            },
+            {
+                "UserName": "TheAlia",
+                "FirstName": "Alina",
+                "LastName": "Kurinova",
+                "Age": "26"
+            },
+            {
+                "UserName": "TheBlade",
+                "FirstName": "Boris",
+                "LastName": "Yurinov",
+                "Age": "47"
+            }
+        ]
+        </textarea>
+        <br />
+        <input type="button" value="Submit users" onclick="postUsers();" />
+    </div>
+    <br />
+    <div>
+        <textarea id='downloadedUsers' style="width: 100%; height: 250px;"></textarea>
+        <br />
+        <input type="button" value="Download users" onclick="getUsers();" />
+    </div>
+
+    <script>
+        function postUsers() {
+            var usersJson = document.getElementById('usersToPost').value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/upload-users");
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(usersJson);
+        }
+        function getUsers() {
+            fetch('/users')
+                .then((response) => {
+                    response.json().then(users => {
+                        var result = users && users.length > 0 ? JSON.stringify(users, null, ' ' ): 'There are no users in DB';
+                        document.getElementById('downloadedUsers').innerHTML = result;
+                    });
+
+                });
+
+            
+        }
+    </script>
+</body>
+
+</html>
