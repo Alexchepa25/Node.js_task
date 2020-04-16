@@ -1,8 +1,7 @@
 // Require packages and set the port
 const express = require('express');
 const bodyParser = require('body-parser');
-//const routes = require(process.cwd() + '/src/routes/routes');
-const csvtojson = require('csvtojson');
+
 var busboy = require('connect-busboy');
 const fileUpload = require('express-fileupload');
 const multer = require('multer');
@@ -33,28 +32,6 @@ let User = sequelize.define('user', {
 });
 
 
-// const Model = Sequelize.Model;
-// class User extends Model { }
-// User.init({
-//     UserName: {
-//         type: Sequelize.STRING,
-//     },
-//     FirstName: {
-//         type: Sequelize.STRING,
-
-//     },
-//     LastName: {
-//         type: Sequelize.STRING
-//     },
-//     Age: {
-//         type: Sequelize.INTEGER
-//     }
-// }, {
-//     sequelize,
-//     modelName: 'user'
-//     // options
-// });
-
 sequelize.sync();
 
 const port = 3002;
@@ -64,35 +41,7 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//app.use(fileUpload());
 
-
-
-
-// Use MySQL
-// const connection = createConnection({
-//     host: 'localhost',
-//     user: 'dbuser',
-//     password: 's3kreee7',
-// });
-
-// connection.connect();
-
-// connection.query('SELECT 1 + 1 AS solution', (err, rows, fields) => {
-//     if (err) throw err;
-//     console.log('The solution is: ', rows[0].solution);
-// });
-
-// connection.end();
-
-
-// Use Node.js body parsing middleware
-// app.use(json());
-// app.use(urlencoded({
-//     extended: true,
-// }));
-
-//routes(app);
 app.get("/users-file", (req, res) => {
     try {
 
